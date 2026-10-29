@@ -1,0 +1,33 @@
+import heapq
+
+class TaskScheduler:
+    def __init__(self):
+        self.heap = []
+        self.counter = 0
+
+    def insert_task(self, priority, task_name):
+        self.counter += 1
+        heapq.heappush(self.heap, (-priority, self.counter, task_name))
+        print(f"Task inserted: '{task_name}' with priority {priority}")
+
+    def extract_max(self):
+        if not self.heap:
+            return "No tasks in the scheduler."
+        
+        neg_priority, _, task_name = heapq.heappop(self.heap)
+        priority = -neg_priority
+        print(f"-> Executing task: '{task_name}' (Priority: {priority})")
+        return task_name
+
+if __name__ == "__main__":
+    scheduler = TaskScheduler()
+    
+    print("--- Inserting Tasks ---")
+    scheduler.insert_task(priority=3, task_name="System Update")
+    scheduler.insert_task(priority=10, task_name="Security Emergency")
+    scheduler.insert_task(priority=5, task_name="Monthly Report Printing")
+    
+    print("\n--- Executing Tasks (Extract-Max) ---")
+    scheduler.extract_max()
+    scheduler.extract_max()
+    scheduler.extract_max()
